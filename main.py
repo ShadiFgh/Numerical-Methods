@@ -87,3 +87,22 @@ def ForwardAndBackSub(L, U, b):
             s = s - U[i][j] * x[j]
         x[i] = s / U[i][i]
     return x
+
+if IsPositiveDefinite(matrix) == False:
+    L, U = LU_decomposition(matrix)
+    print ("L:")
+    pprint.pprint(L)
+    print ("U:")
+    pprint.pprint(U)
+    ForwardAndBackSub(L, U, b)
+    print('x = ')
+    print(ForwardAndBackSub(L, U, b))
+
+
+if IsPositiveDefinite(matrix) == True:
+    R = cholesky(matrix)
+    print("R:")
+    pprint.pprint(R)
+    ForwardAndBackSub(R, np.transpose(R), b)
+    print('x = ')
+    print(ForwardAndBackSub(R, np.transpose(R), b))
