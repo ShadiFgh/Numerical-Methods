@@ -68,3 +68,22 @@ def cholesky(A):
             else:
                 R[i][k] = (1.0 / R[k][k] * (A[i][k] - z))
     return R
+
+
+def ForwardAndBackSub(L, U, b):
+
+    n = len(L)
+    x = np.zeros((n), float)
+    y = np.zeros((n), float)
+    for i in range(0, n):
+        s = b[i]
+        for j in range(0, i):
+            s = s - L[i][j] * y[j]
+        y[i] = s
+
+    for i in range(n - 1, -1, -1):
+        s = y[i]
+        for j in range(i + 1, n):
+            s = s - U[i][j] * x[j]
+        x[i] = s / U[i][i]
+    return x
